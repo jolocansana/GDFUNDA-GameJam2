@@ -31,7 +31,9 @@ public class GameLogic : MonoBehaviour
     {
         string taskName = param.GetStringExtra(EventNames.Param.TASK_NAME, "defaultValue");
         Debug.Log(taskName);
-        Cursor.lockState = CursorLockMode.None;
+
+        param.PutExtra(EventNames.Param.TOGGLE_CHARACTER, false);
+        EventBroadcaster.Instance.PostEvent(EventNames.Param.TOGGLE_CHARACTER, param);
 
         switch (taskName)
         {
@@ -47,7 +49,9 @@ public class GameLogic : MonoBehaviour
     void completeTask(Parameters param)
     {
         string taskName = param.GetStringExtra(EventNames.Param.TASK_NAME, "defaultValue");
-        Cursor.lockState = CursorLockMode.Locked;
+
+        param.PutExtra(EventNames.Param.TOGGLE_CHARACTER, true);
+        EventBroadcaster.Instance.PostEvent(EventNames.Param.TOGGLE_CHARACTER, param);
 
         switch (taskName)
         {
