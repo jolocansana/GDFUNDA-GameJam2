@@ -15,20 +15,22 @@ public class Raycaster : MonoBehaviour
     {
         // highlighting
         RaycastHit hit;
+        
         bool objectHighlighted = Physics.Raycast(
                 Camera.main.transform.position,
                 Camera.main.transform.forward,
                 out hit,
                 10f
             );
-        if (objectHighlighted)
+       
+        /**if (objectHighlighted)
         {
             hit.collider.SendMessage("RayTargetHighlight", SendMessageOptions.DontRequireReceiver);
-        }
+        }**/
 
 
         // selection
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("bang!");
             if (objectHighlighted)
