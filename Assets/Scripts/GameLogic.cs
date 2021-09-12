@@ -17,6 +17,7 @@ public class GameLogic : MonoBehaviour
     // GameObject for Minigame Canvases
     public GameObject sampleMinigameCanvas;
     public GameObject wireCanvas;
+    public GameObject fixDoorCanvas;
 
     public class Task
     {
@@ -47,6 +48,8 @@ public class GameLogic : MonoBehaviour
 
         taskList = new List<Task>();
         taskList.Add(new Task("SampleMinigame", "Do sample minigame"));
+        taskList.Add(new Task("PlateCollecting", "Pickup the plates around the house"));
+        taskList.Add(new Task("FixDoor", "Fix Mom's Door"));
         playerOrigPos = playerObject.transform.position;
     }
 
@@ -162,6 +165,9 @@ public class GameLogic : MonoBehaviour
                 wireCanvas.SetActive(true);
                 Debug.Log("Light Hit");
                 break;
+            case "FixDoor":
+                fixDoorCanvas.SetActive(true);
+                break;
             default:
                 break;
         }
@@ -185,6 +191,9 @@ public class GameLogic : MonoBehaviour
             // add more cases for your minigames here
             case "PlateCollecting":
                 Debug.Log("Plates complete");
+                break;
+            case "FixDoor":
+                fixDoorCanvas.SetActive(false);
                 break;
             default:
                 break;
