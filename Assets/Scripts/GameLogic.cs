@@ -16,6 +16,7 @@ public class GameLogic : MonoBehaviour
 
     // GameObject for Minigame Canvases
     public GameObject sampleMinigameCanvas;
+    public GameObject wireCanvas;
 
     public class Task
     {
@@ -157,6 +158,10 @@ public class GameLogic : MonoBehaviour
                 sampleMinigameCanvas.SetActive(true);
                 break;
             // add more cases for your minigames here
+            case "LightFix":
+                wireCanvas.SetActive(true);
+                Debug.Log("Light Hit");
+                break;
             default:
                 break;
         }
@@ -178,6 +183,9 @@ public class GameLogic : MonoBehaviour
                 sampleMinigameCanvas.SetActive(false);
                 break;
             // add more cases for your minigames here
+            case "PlateCollecting":
+                Debug.Log("Plates complete");
+                break;
             default:
                 break;
         }
