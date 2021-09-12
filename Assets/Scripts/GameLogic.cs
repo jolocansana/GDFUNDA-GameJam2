@@ -11,6 +11,7 @@ public class GameLogic : MonoBehaviour
     public GameObject playerCanvas;
 
     public GameObject sampleMinigameCanvas;
+    public GameObject wireCanvas;
 
     private List<string> taskList;
 
@@ -116,6 +117,10 @@ public class GameLogic : MonoBehaviour
                 sampleMinigameCanvas.SetActive(true);
                 break;
             // add more cases for your minigames here
+            case "LightFix":
+                wireCanvas.SetActive(true);
+                Debug.Log("Light Hit");
+                break;
             default:
                 break;
         }
