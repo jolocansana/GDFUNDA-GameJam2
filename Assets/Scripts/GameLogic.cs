@@ -137,6 +137,9 @@ public class GameLogic : MonoBehaviour
                 sampleMinigameCanvas.SetActive(false);
                 break;
             // add more cases for your minigames here
+            case "PlateCollecting":
+                Debug.Log("Plates complete");
+                break;
             default:
                 break;
         }
