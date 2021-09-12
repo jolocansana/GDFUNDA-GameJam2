@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SampleMinigame : MonoBehaviour
+public class FixDoorGame : MonoBehaviour
 {
 
     // OTHER GAME LOGIC GOES HERE
