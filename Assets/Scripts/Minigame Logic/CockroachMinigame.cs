@@ -8,6 +8,7 @@ public class CockroachMinigame : MonoBehaviour
     public int timesToHit = 0;
     [SerializeField] GameObject counter;
     [SerializeField] GameObject cockroach;
+    [SerializeField] GameObject cockroach_3d;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +50,7 @@ public class CockroachMinigame : MonoBehaviour
 
     public void finishTask()
     {
+        cockroach_3d.SetActive(false);
         Parameters parameters = new Parameters();
         parameters.PutExtra(EventNames.Param.TASK_NAME, EventNames.Minigame.MINIGAME_COCKROACH); // Change name to your minigame
 

@@ -39,6 +39,7 @@ public class GameLogic : MonoBehaviour
     public bool isGamePaused = false;
     public bool isGameDone = false;
     private Vector3 playerOrigPos;
+    private bool isInMinigame = false;
 
 
 
@@ -53,6 +54,7 @@ public class GameLogic : MonoBehaviour
         taskList.Add(new Task("PlateCollecting", "Pickup the plates around the house"));
         taskList.Add(new Task("LightFix", "Fix the broken light"));
         taskList.Add(new Task("FixDoor", "Fix Mom's Door"));
+        taskList.Add(new Task(EventNames.Minigame.MINIGAME_COCKROACH, "Kill the spider in your room"));
         playerOrigPos = playerObject.transform.position;
     }
 
@@ -99,10 +101,15 @@ public class GameLogic : MonoBehaviour
             if (isGamePaused) // if game is paused
             {
                 pauseMenu.SetActive(false);
-                playerCanvas.SetActive(true);
                 isGamePaused = false;
-                param.PutExtra(EventNames.Param.TOGGLE_CHARACTER, !isGamePaused); // false stops character
-                EventBroadcaster.Instance.PostEvent(EventNames.Param.TOGGLE_CHARACTER, param);
+
+                if (!isInMinigame) // not in minigame
+                {
+                    playerCanvas.SetActive(true);
+                    param.PutExtra(EventNames.Param.TOGGLE_CHARACTER, !isGamePaused); // false stops character, this case TRUE
+                    EventBroadcaster.Instance.PostEvent(EventNames.Param.TOGGLE_CHARACTER, param);
+                }
+
             }
             else // if game is not paused
             {
@@ -150,40 +157,56 @@ public class GameLogic : MonoBehaviour
 
     void StartMinigame(Parameters param)
     {
+        bool isMinigameInTask = true;
+
         string taskName = param.GetStringExtra(EventNames.Param.TASK_NAME, "defaultValue");
         Debug.Log(taskName);
 
-        playerCanvas.SetActive(false);
-
-        param.PutExtra(EventNames.Param.TOGGLE_CHARACTER, false);
-        EventBroadcaster.Instance.PostEvent(EventNames.Param.TOGGLE_CHARACTER, param);
-
-        switch (taskName)
+        // check if the minigame is done to stop from redoing a game
+        foreach (Task task in taskList)
         {
-            case "SampleMinigame":
-                {
-                    sampleMinigameCanvas.SetActive(true);
+            if (task.id == taskName)
+            {
+                isMinigameInTask = false;
+            }
+        }
+
+        if (!isMinigameInTask)
+        {
+            playerCanvas.SetActive(false);
+
+            isInMinigame = true;
+
+            param.PutExtra(EventNames.Param.TOGGLE_CHARACTER, false);
+            EventBroadcaster.Instance.PostEvent(EventNames.Param.TOGGLE_CHARACTER, param);
+
+            switch (taskName)
+            {
+                case "SampleMinigame":
+                    {
+                        sampleMinigameCanvas.SetActive(true);
+                        break;
+                    }
+                // add more cases for your minigames here
+                case EventNames.Minigame.MINIGAME_COCKROACH:
+                    {
+                        //cockroachMinigameCanvas.GetComponent<CockroachMinigame>().initGame();
+                        cockroachMinigameCanvas.SetActive(true);
+                        break;
+                    }
+                case "KettleGame":
+                    kettleGameCanvas.SetActive(true);
                     break;
-                }
-            // add more cases for your minigames here
-            case EventNames.Minigame.MINIGAME_COCKROACH:
-                {
-                    //cockroachMinigameCanvas.GetComponent<CockroachMinigame>().initGame();
-                    cockroachMinigameCanvas.SetActive(true);
+                case "LightFix":
+                    wireCanvas.SetActive(true);
+                    Debug.Log("Light Hit");
                     break;
-                }
-            case "KettleGame":
-                kettleGameCanvas.SetActive(true);
-                break;
-            case "LightFix":
-                wireCanvas.SetActive(true);
-                Debug.Log("Light Hit");
-                break;
-            case "FixDoor":
-                fixDoorCanvas.SetActive(true);
-                break;
-            default:
-                break;
+                case "FixDoor":
+                    fixDoorCanvas.SetActive(true);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -192,6 +215,7 @@ public class GameLogic : MonoBehaviour
         string taskName = param.GetStringExtra(EventNames.Param.TASK_NAME, "defaultValue");
 
         playerCanvas.SetActive(true);
+        isInMinigame = false;
 
         param.PutExtra(EventNames.Param.TOGGLE_CHARACTER, true);
         EventBroadcaster.Instance.PostEvent(EventNames.Param.TOGGLE_CHARACTER, param);
