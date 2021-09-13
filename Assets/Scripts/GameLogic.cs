@@ -15,7 +15,7 @@ public class GameLogic : MonoBehaviour
     public GameObject playerObject;
 
     // GameObject for Minigame Canvases
-    public GameObject sampleMinigameCanvas;
+    public GameObject kettleGameCanvas;
     public GameObject wireCanvas;
     public GameObject fixDoorCanvas;
 
@@ -47,7 +47,7 @@ public class GameLogic : MonoBehaviour
         EventBroadcaster.Instance.AddObserver(EventNames.GameJam.START_MINIGAME, this.StartMinigame);
 
         taskList = new List<Task>();
-        taskList.Add(new Task("SampleMinigame", "Do sample minigame"));
+        taskList.Add(new Task("KettleGame", "Adjust the kettle"));
         taskList.Add(new Task("PlateCollecting", "Pickup the plates around the house"));
         taskList.Add(new Task("LightFix", "Fix the broken light"));
         taskList.Add(new Task("FixDoor", "Fix Mom's Door"));
@@ -158,8 +158,8 @@ public class GameLogic : MonoBehaviour
 
         switch (taskName)
         {
-            case "SampleMinigame":
-                sampleMinigameCanvas.SetActive(true);
+            case "KettleGame":
+                kettleGameCanvas.SetActive(true);
                 break;
             // add more cases for your minigames here
             case "LightFix":
@@ -185,9 +185,9 @@ public class GameLogic : MonoBehaviour
 
         switch (taskName)
         {
-            case "SampleMinigame":
+            case "KettleGame":
                 Debug.Log("IZ DONE");
-                sampleMinigameCanvas.SetActive(false);
+                kettleGameCanvas.SetActive(false);
                 break;
             // add more cases for your minigames here
             case "PlateCollecting":
