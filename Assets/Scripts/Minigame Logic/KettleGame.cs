@@ -8,6 +8,7 @@ public class KettleGame : MonoBehaviour
     public GameObject slideDisplay;
     public GameObject gameInstructions;
     public Slider tempSlider;
+    public GameObject point_light;
 
     private int slideNumber;
     private int slideCorrect;
@@ -18,17 +19,23 @@ public class KettleGame : MonoBehaviour
         slideCorrect = Random.RandomRange(0,100);
         gameInstructions.GetComponent<Text>().text = "Adjust the temperature to " + slideCorrect;
 
-        tempSlider.onValueChanged.AddListener(delegate { checkTemperature(); });
+        tempSlider.onValueChanged.AddListener(delegate { changeTemperature(); });
     }
 
     // OTHER GAME LOGIC GOES HERE
+
+    public void changeTemperature()
+    {
+        int value = (int)(tempSlider.value * 100);
+        slideDisplay.GetComponent<Text>().text = value.ToString();
+    }
     public void checkTemperature()
     {
         int value = (int) (tempSlider.value * 100);
-        slideDisplay.GetComponent<Text>().text = value.ToString();
 
         if (value == slideCorrect)
         {
+            point_light.SetActive(false);
             finishTask();
         }
     }

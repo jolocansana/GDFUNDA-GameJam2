@@ -5,6 +5,9 @@ using UnityEngine;
 public class FixDoorGame : MonoBehaviour
 {
     public GameObject doorObject;
+    public GameObject doorParent;
+
+    public GameObject point_light;
 
     private int unscrewed = 4;
     // OTHER GAME LOGIC GOES HERE
@@ -15,7 +18,10 @@ public class FixDoorGame : MonoBehaviour
         if (unscrewed == 0)
         {
             doorObject.GetComponent<Animator>().enabled = false;
-            doorObject.transform.rotation = Quaternion.Euler(-90, 0, 90);
+            doorParent.GetComponent<BoxCollider>().enabled = false;
+            doorObject.transform.rotation = Quaternion.Euler(-90, 0, 180);
+
+            point_light.SetActive(false);
             finishTask();
         }
     }

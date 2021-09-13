@@ -13,13 +13,14 @@ public class GameLogic : MonoBehaviour
     public GameObject gameOverCondition;
 
     public GameObject sampleMinigameCanvas;
-    public GameObject cockroachMinigameCanvas;
     public GameObject playerObject;
 
     // GameObject for Minigame Canvases
     public GameObject kettleGameCanvas;
+    public GameObject cockroachMinigameCanvas;
     public GameObject wireCanvas;
     public GameObject fixDoorCanvas;
+    public GameObject turnOffFanCanvas;
 
     public class Task
     {
@@ -51,10 +52,11 @@ public class GameLogic : MonoBehaviour
 
         taskList = new List<Task>();
         taskList.Add(new Task("KettleGame", "Adjust the kettle"));
-        taskList.Add(new Task("PlateCollecting", "Pickup the plates around the house"));
+        taskList.Add(new Task("PlateCollecting", "Pickup the plates"));
         taskList.Add(new Task("LightFix", "Fix the broken light"));
         taskList.Add(new Task("FixDoor", "Fix Mom's Door"));
-        taskList.Add(new Task(EventNames.Minigame.MINIGAME_COCKROACH, "Kill the spider in your room"));
+        taskList.Add(new Task("TurnOffFanGame", "Turn off Mom's fan"));
+        taskList.Add(new Task(EventNames.Minigame.MINIGAME_COCKROACH, "Kill the spider in the bathroom"));
         playerOrigPos = playerObject.transform.position;
     }
 
@@ -204,6 +206,9 @@ public class GameLogic : MonoBehaviour
                 case "FixDoor":
                     fixDoorCanvas.SetActive(true);
                     break;
+                case "TurnOffFanGame":
+                    turnOffFanCanvas.SetActive(true);
+                    break;
                 default:
                     break;
             }
@@ -247,6 +252,9 @@ public class GameLogic : MonoBehaviour
                 break;
             case "LightFix":
                 wireCanvas.SetActive(false);
+                break;
+            case "TurnOffFanGame":
+                turnOffFanCanvas.SetActive(false);
                 break;
             default:
                 break;
