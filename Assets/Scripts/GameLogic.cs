@@ -9,15 +9,36 @@ public class GameLogic : MonoBehaviour
     public GameObject timerCanvas;
     public GameObject pauseMenu;
     public GameObject playerCanvas;
+    public GameObject gameOverCanvas;
+    public GameObject gameOverCondition;
 
     public GameObject sampleMinigameCanvas;
     public GameObject cockroachMinigameCanvas;
+    public GameObject playerObject;
 
-    private List<string> taskList;
+    // GameObject for Minigame Canvases
+    public GameObject kettleGameCanvas;
+    public GameObject wireCanvas;
+    public GameObject fixDoorCanvas;
 
-    private float timeLeft = 5; // in seconds, default 5 minutes
+    public class Task
+    {
+        public string id;
+        public string taskDesc;
+
+        public Task(string id, string taskDesc)
+        {
+            this.id = id;
+            this.taskDesc = taskDesc;
+        }
+    }
+
+    private List<Task> taskList;
+
+    private float timeLeft = 60; // in seconds, default 5 minutes = 300s
     public bool isGamePaused = false;
     public bool isGameDone = false;
+    private Vector3 playerOrigPos;
 
 
 
@@ -27,8 +48,12 @@ public class GameLogic : MonoBehaviour
         EventBroadcaster.Instance.AddObserver(EventNames.GameJam.COMPLETE_TASK, this.CompleteTask);
         EventBroadcaster.Instance.AddObserver(EventNames.GameJam.START_MINIGAME, this.StartMinigame);
 
-        taskList = new List<string>();
-        taskList.Add("SampleMinigame");
+        taskList = new List<Task>();
+        taskList.Add(new Task("KettleGame", "Adjust the kettle"));
+        taskList.Add(new Task("PlateCollecting", "Pickup the plates around the house"));
+        taskList.Add(new Task("LightFix", "Fix the broken light"));
+        taskList.Add(new Task("FixDoor", "Fix Mom's Door"));
+        playerOrigPos = playerObject.transform.position;
     }
 
     // Update is called once per frame
@@ -36,6 +61,8 @@ public class GameLogic : MonoBehaviour
     {
         UpdateTasklist();
         PauseHandler();
+
+        Debug.Log(playerOrigPos);
 
         if (!isGamePaused && !isGameDone)
         {
@@ -46,10 +73,15 @@ public class GameLogic : MonoBehaviour
                 timerCanvas.GetComponent<Text>().text = string.Format("{0:00}:{1:00}", minutes, seconds);
                 timeLeft -= Time.deltaTime;
             }
-            else // GAME OVER CONDITIONS
+            else // TIME FAIL GAME OVER
             {
                 GameOver(false);
             }
+        }
+
+        if (taskList.Count == 0)
+        {
+            GameOver(true);
         }
     }
 
@@ -69,7 +101,7 @@ public class GameLogic : MonoBehaviour
                 pauseMenu.SetActive(false);
                 playerCanvas.SetActive(true);
                 isGamePaused = false;
-                param.PutExtra(EventNames.Param.TOGGLE_CHARACTER, !isGamePaused);
+                param.PutExtra(EventNames.Param.TOGGLE_CHARACTER, !isGamePaused); // false stops character
                 EventBroadcaster.Instance.PostEvent(EventNames.Param.TOGGLE_CHARACTER, param);
             }
             else // if game is not paused
@@ -87,9 +119,9 @@ public class GameLogic : MonoBehaviour
     {
         string taskString = "";
 
-        foreach(string task in taskList)
+        foreach(Task task in taskList)
         {
-            taskString = taskString + "- " + task + "\n"; 
+            taskString = taskString + "- " + task.taskDesc + "\n"; 
         }
         
         taskListCanvas.GetComponent<Text>().text = taskString;
@@ -97,8 +129,23 @@ public class GameLogic : MonoBehaviour
 
     void GameOver(bool isSuccess) // if true, then win; if false, then lose
     {
-        Debug.Log("GG KA BOI");
+        Parameters param = new Parameters();
+        param.PutExtra(EventNames.Param.TOGGLE_CHARACTER, false);
+        EventBroadcaster.Instance.PostEvent(EventNames.Param.TOGGLE_CHARACTER, param);
+
+        if (isSuccess)
+        {
+            gameOverCondition.GetComponent<Text>().text = "GG! You did it!";
+        } else
+        {
+            gameOverCondition.GetComponent<Text>().text = "Oh no, you better hide.";
+        }
+
+        playerCanvas.SetActive(false);
+        gameOverCanvas.SetActive(true);
         isGameDone = true;
+
+        playerObject.transform.position = playerOrigPos;
     }
 
     void StartMinigame(Parameters param)
@@ -125,6 +172,17 @@ public class GameLogic : MonoBehaviour
                     cockroachMinigameCanvas.SetActive(true);
                     break;
                 }
+            case "KettleGame":
+                kettleGameCanvas.SetActive(true);
+                break;
+            // add more cases for your minigames here
+            case "LightFix":
+                wireCanvas.SetActive(true);
+                Debug.Log("Light Hit");
+                break;
+            case "FixDoor":
+                fixDoorCanvas.SetActive(true);
+                break;
             default:
                 break;
         }
@@ -153,8 +211,30 @@ public class GameLogic : MonoBehaviour
                     cockroachMinigameCanvas.SetActive(false);
                     break;
                 }
+            case "KettleGame":
+                Debug.Log("IZ DONE");
+                kettleGameCanvas.SetActive(false);
+                break;
+            // add more cases for your minigames here
+            case "PlateCollecting":
+                Debug.Log("Plates complete");
+                break;
+            case "FixDoor":
+                fixDoorCanvas.SetActive(false);
+                break;
+            case "LightFix":
+                wireCanvas.SetActive(false);
+                break;
             default:
                 break;
+        }
+
+        foreach (Task task in taskList)
+        {
+            if (task.id == taskName)
+            {
+                taskList.Remove(task);
+            }
         }
     }
 }
