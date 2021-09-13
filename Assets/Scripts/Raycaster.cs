@@ -9,18 +9,7 @@ public class Raycaster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventBroadcaster.Instance.AddObserver(EventNames.GameJam.START_MINIGAME, this.disableHitDetection);
-        EventBroadcaster.Instance.AddObserver(EventNames.GameJam.COMPLETE_TASK, this.enableHitDetection);
-    }
 
-    void disableHitDetection()
-    {
-        this.hitDetectionEnabled = false;
-    } 
-
-    void enableHitDetection()
-    {
-        this.hitDetectionEnabled = true;
     }
 
     // Update is called once per frame
@@ -36,12 +25,11 @@ public class Raycaster : MonoBehaviour
                 10f
             );
 
-        Debug.Log("HIT_DETECTION: " + this.hitDetectionEnabled);
         // selection
         if (objectHighlighted)
         {
             // hit.collider.SendMessage("RayTargetHighlight", SendMessageOptions.DontRequireReceiver);
-            if (Input.GetMouseButtonDown(0) && hitDetectionEnabled)
+            if (Input.GetMouseButtonDown(0))
             {
                 Debug.Log("bang!");
                 hit.collider.SendMessage("RayTargetHit", SendMessageOptions.DontRequireReceiver);

@@ -168,14 +168,13 @@ public class GameLogic : MonoBehaviour
             // add more cases for your minigames here
             case EventNames.Minigame.MINIGAME_COCKROACH:
                 {
-                    cockroachMinigameCanvas.GetComponent<CockroachMinigame>().initGame();
+                    //cockroachMinigameCanvas.GetComponent<CockroachMinigame>().initGame();
                     cockroachMinigameCanvas.SetActive(true);
                     break;
                 }
             case "KettleGame":
                 kettleGameCanvas.SetActive(true);
                 break;
-            // add more cases for your minigames here
             case "LightFix":
                 wireCanvas.SetActive(true);
                 Debug.Log("Light Hit");
