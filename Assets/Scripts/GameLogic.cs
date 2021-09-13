@@ -49,6 +49,7 @@ public class GameLogic : MonoBehaviour
         taskList = new List<Task>();
         taskList.Add(new Task("SampleMinigame", "Do sample minigame"));
         taskList.Add(new Task("PlateCollecting", "Pickup the plates around the house"));
+        taskList.Add(new Task("LightFix", "Fix the broken light"));
         taskList.Add(new Task("FixDoor", "Fix Mom's Door"));
         playerOrigPos = playerObject.transform.position;
     }
@@ -194,6 +195,9 @@ public class GameLogic : MonoBehaviour
                 break;
             case "FixDoor":
                 fixDoorCanvas.SetActive(false);
+                break;
+            case "LightFix":
+                wireCanvas.SetActive(false);
                 break;
             default:
                 break;
