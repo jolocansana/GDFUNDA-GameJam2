@@ -11,6 +11,7 @@ public class GameLogic : MonoBehaviour
     public GameObject playerCanvas;
 
     public GameObject sampleMinigameCanvas;
+    public GameObject cockroachMinigameCanvas;
 
     private List<string> taskList;
 
@@ -113,9 +114,17 @@ public class GameLogic : MonoBehaviour
         switch (taskName)
         {
             case "SampleMinigame":
-                sampleMinigameCanvas.SetActive(true);
-                break;
+                {
+                    sampleMinigameCanvas.SetActive(true);
+                    break;
+                }
             // add more cases for your minigames here
+            case EventNames.Minigame.MINIGAME_COCKROACH:
+                {
+                    cockroachMinigameCanvas.GetComponent<CockroachMinigame>().initGame();
+                    cockroachMinigameCanvas.SetActive(true);
+                    break;
+                }
             default:
                 break;
         }
@@ -133,10 +142,17 @@ public class GameLogic : MonoBehaviour
         switch (taskName)
         {
             case "SampleMinigame":
-                Debug.Log("IZ DONE");
-                sampleMinigameCanvas.SetActive(false);
-                break;
+                {
+                    Debug.Log("IZ DONE");
+                    sampleMinigameCanvas.SetActive(false);
+                    break;
+                }
             // add more cases for your minigames here
+            case EventNames.Minigame.MINIGAME_COCKROACH:
+                {
+                    cockroachMinigameCanvas.SetActive(false);
+                    break;
+                }
             default:
                 break;
         }

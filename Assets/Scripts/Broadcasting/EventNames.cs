@@ -18,6 +18,11 @@ public class EventNames {
 		public const string TASK_NAME = "TASK_NAME";
 		public const string TOGGLE_CHARACTER = "TOGGLE_CHARACTER";
     }
+
+	public class Minigame
+    {
+		public const string MINIGAME_COCKROACH = "MINIGAME_COCKROACH";
+    }
 }
 
 
