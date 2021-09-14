@@ -8,6 +8,8 @@ public class TurnOffFanGame : MonoBehaviour
     public GameObject gameInstructions;
     public Slider tempSlider;
 
+    public GameObject point_light;
+
     public GameObject fan;
 
     private int numLeft;
@@ -36,6 +38,7 @@ public class TurnOffFanGame : MonoBehaviour
         if (numLeft == 0)
         {
             fan.GetComponent<Animator>().enabled = false;
+            point_light.SetActive(false);
             finishTask();
         }
     }
