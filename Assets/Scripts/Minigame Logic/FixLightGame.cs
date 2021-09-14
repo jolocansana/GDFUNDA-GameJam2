@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class FixLightGame : MonoBehaviour
 {
     private string wireColor = "";
+    private string fullWireColor = "";
     private int doneColorsSize = 0;
     private string[] doneColors = new string[4];
 
@@ -20,6 +21,7 @@ public class FixLightGame : MonoBehaviour
 
     public GameObject point_light;
     public GameObject spot_light;
+    public GameObject selectedText;
 
     // OTHER GAME LOGIC GOES HERE
 
@@ -29,21 +31,31 @@ public class FixLightGame : MonoBehaviour
         {
             if (wireColor.Equals("")) // means no color is selected
             {
+                fullWireColor = color;
                 wireColor = color.Split('_')[0];
-                Debug.Log(wireColor);
+                selectedText.GetComponent<Text>().text = wireColor + " is selected.";
             }
             else // means a wire is selected and now you have to select the correct color
             {
                 if (wireColor.Equals(color.Split('_')[0]))
                 {
-                    Debug.Log(wireColor + "is complete");
-                    doneColors[doneColorsSize] = wireColor;
-                    doneColorsSize += 1;
+                    if (!fullWireColor.Equals(color))
+                    {
+                        Debug.Log(wireColor + "is complete");
+                        doneColors[doneColorsSize] = wireColor;
+                        doneColorsSize += 1;
+                        wireColor = "";
+                        selectedText.GetComponent<Text>().text = "Success! Select another color";
+                    } else
+                    {
+                        Debug.Log("User clicked the same button");
+                    }
                 } else
                 {
                     Debug.Log("Wrong color reset");
+                    selectedText.GetComponent<Text>().text = "Wrong color!";
+                    wireColor = "";
                 }
-                wireColor = "";
             }
         }
 

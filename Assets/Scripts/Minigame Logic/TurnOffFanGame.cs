@@ -15,7 +15,7 @@ public class TurnOffFanGame : MonoBehaviour
 
     public void Start()
     {
-        numLeft = Random.RandomRange(0, 5);
+        numLeft = Random.RandomRange(1, 5);
         gameInstructions.GetComponent<Text>().text = "Turn off the fan by pulling up and down " + numLeft + " times";
 
         tempSlider.onValueChanged.AddListener(delegate { checkIfPulled(); });

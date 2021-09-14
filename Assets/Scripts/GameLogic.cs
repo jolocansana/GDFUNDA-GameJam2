@@ -22,6 +22,9 @@ public class GameLogic : MonoBehaviour
     public GameObject fixDoorCanvas;
     public GameObject turnOffFanCanvas;
 
+    public GameObject doneSoundEffect;
+    public GameObject winningSoundEffect;
+
     public class Task
     {
         public string id;
@@ -138,13 +141,13 @@ public class GameLogic : MonoBehaviour
 
     void GameOver(bool isSuccess) // if true, then win; if false, then lose
     {
-    kettleGameCanvas.SetActive(false);
-    cockroachMinigameCanvas.SetActive(false);
-    wireCanvas.SetActive(false);
-    fixDoorCanvas.SetActive(false);
-    turnOffFanCanvas.SetActive(false);
+        kettleGameCanvas.SetActive(false);
+        cockroachMinigameCanvas.SetActive(false);
+        wireCanvas.SetActive(false);
+        fixDoorCanvas.SetActive(false);
+        turnOffFanCanvas.SetActive(false);
 
-    Parameters param = new Parameters();
+        Parameters param = new Parameters();
         param.PutExtra(EventNames.Param.TOGGLE_CHARACTER, false);
         EventBroadcaster.Instance.PostEvent(EventNames.Param.TOGGLE_CHARACTER, param);
 
@@ -266,12 +269,22 @@ public class GameLogic : MonoBehaviour
                 break;
         }
 
-        foreach (Task task in taskList)
+        foreach (Task task in taskList.ToArray())
         {
             if (task.id == taskName)
             {
                 taskList.Remove(task);
             }
+        }
+
+        Debug.Log(taskList.Count);
+
+        if (taskList.Count > 0)
+        {
+            doneSoundEffect.GetComponent<AudioSource>().Play();
+        } else if (taskList.Count == 0)
+        {
+            winningSoundEffect.GetComponent<AudioSource>().Play();
         }
     }
 }
