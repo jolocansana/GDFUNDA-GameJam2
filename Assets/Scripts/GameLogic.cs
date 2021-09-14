@@ -138,7 +138,13 @@ public class GameLogic : MonoBehaviour
 
     void GameOver(bool isSuccess) // if true, then win; if false, then lose
     {
-        Parameters param = new Parameters();
+    kettleGameCanvas.SetActive(false);
+    cockroachMinigameCanvas.SetActive(false);
+    wireCanvas.SetActive(false);
+    fixDoorCanvas.SetActive(false);
+    turnOffFanCanvas.SetActive(false);
+
+    Parameters param = new Parameters();
         param.PutExtra(EventNames.Param.TOGGLE_CHARACTER, false);
         EventBroadcaster.Instance.PostEvent(EventNames.Param.TOGGLE_CHARACTER, param);
 

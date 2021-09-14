@@ -8645,7 +8645,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: a95c7777808764e4cac894772bcc34f5, type: 3}
-    m_FontSize: 19
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -13983,13 +13983,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1869141118}
         m_TargetAssemblyTypeName: FixDoorGame, Assembly-CSharp
         m_MethodName: fixScrew
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: button2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &546173180
@@ -24832,13 +24832,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1869141118}
         m_TargetAssemblyTypeName: FixDoorGame, Assembly-CSharp
         m_MethodName: fixScrew
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: button3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1054775237
@@ -29618,7 +29618,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: a95c7777808764e4cac894772bcc34f5, type: 3}
-    m_FontSize: 18
+    m_FontSize: 13
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -30846,13 +30846,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1869141118}
         m_TargetAssemblyTypeName: FixDoorGame, Assembly-CSharp
         m_MethodName: fixScrew
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: button4
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1356384614
@@ -32679,13 +32679,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1869141118}
         m_TargetAssemblyTypeName: FixDoorGame, Assembly-CSharp
         m_MethodName: fixScrew
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: button1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1399988411
@@ -45394,6 +45394,10 @@ MonoBehaviour:
   doorObject: {fileID: 1566698356}
   doorParent: {fileID: 1612942061}
   point_light: {fileID: 1854200819}
+  button1: {fileID: 1399988408}
+  button2: {fileID: 546173177}
+  button3: {fileID: 1054775234}
+  button4: {fileID: 1356384611}
 --- !u!1 &1870986988
 GameObject:
   m_ObjectHideFlags: 0
